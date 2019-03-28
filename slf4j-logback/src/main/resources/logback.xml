@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <property name="HOME_LOG" value="logs/app.log"/>
+
+    <appender name="LogToConsole" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <!--
+    <appender name="LogToFile" class="ch.qos.logback.core.FileAppender">
+        <file>${HOME_LOG}</file>
+        <append>true</append>
+        <immediateFlush>true</immediateFlush>
+        <encoder>
+            <pattern>%d %p %c{1.} [%t] %m%n</pattern>
+        </encoder>
+    </appender>
+     -->
+
+    <appender name="LogToRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_LOG}</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy/MM, aux}/app.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- each archived file size - max 10MB -->
+            <maxFileSize>10MB</maxFileSize>
+            <!-- current day, all archived file size - max 100MB -->
+            <totalSizeCap>100MB</totalSizeCap>
+            <!-- days to keep -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <!--
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/app.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>10</maxHistory>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        -->
+
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LogToEmail" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>smtp.mailgun.org</smtpHost>
+        <smtpPort>25</smtpPort>
+        <username>123</username>
+        <password>123</password>
+        <to>mkyong2002@gmail.com</to>
+        <to>mkyong2002@yahoo.com</to>
+        <from>admin@mkyong.com</from>
+        <subject>TESTING: %logger{20} - %m</subject>
+
+        <layout class="ch.qos.logback.classic.html.HTMLLayout"/>
+
+        <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTracker">
+            <!-- send just one log entry per email -->
+            <bufferSize>1</bufferSize>
+        </cyclicBufferTracker>
+
+        <!-- default asynchronousSending = true -->
+        <!-- for single main() testing, turn off to avoid system exit without sending email-->
+        <asynchronousSending>false</asynchronousSending>
+
+    </appender>
+
+    <!-- test smtp
+    <logger name="com.mkyong" level="error" additivity="false">
+        <appender-ref ref="LogToEmail"/>
+    </logger>
+    -->
+
+    <logger name="com.mkyong" level="debug" additivity="false">
+        <appender-ref ref="LogToRollingFile"/>
+        <appender-ref ref="LogToConsole"/>
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="LogToConsole"/>
+    </root>
+
+</configuration>
+
