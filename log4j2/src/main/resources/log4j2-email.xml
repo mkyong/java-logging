@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <SMTP name="LogToMail" subject="Error Log From Log4j"
+              from="from@DOMAIN"
+              to="to@DOMAIN"
+              smtpHost="smtp.mailgun.org"
+              smtpPort="25"
+              smtpUsername="abc"
+              smtpPassword="123"
+              bufferSize="100">
+        </SMTP>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="com.mkyong" level="error" additivity="false">
+            <AppenderRef ref="LogToMail"/>
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="LogToConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

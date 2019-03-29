@@ -5,20 +5,6 @@
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!--
-        <RollingFile name="LogToRollingFile" fileName="logs/app.log"
-                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
-            </PatternLayout>
-            <Policies>
-                <TimeBasedTriggeringPolicy/>
-                <SizeBasedTriggeringPolicy size="100 MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="10"/>
-        </RollingFile>
-        -->
-
         <RollingRandomAccessFile name="LogToRollingRandomAccessFile" fileName="logs/app.log"
                                  filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout>
@@ -33,13 +19,17 @@
 
     </Appenders>
     <Loggers>
-        <!-- avoid duplicated logs with additivity=false -->
-        <Logger name="com.mkyong" level="debug" additivity="false">
+
+        <!--  asynchronous loggers -->
+        <AsyncLogger name="com.mkyong" level="debug" additivity="false">
             <AppenderRef ref="LogToRollingRandomAccessFile"/>
             <AppenderRef ref="LogToConsole"/>
-        </Logger>
+        </AsyncLogger>
+
+        <!-- synchronous loggers -->
         <Root level="error">
             <AppenderRef ref="LogToConsole"/>
         </Root>
     </Loggers>
 </Configuration>
+

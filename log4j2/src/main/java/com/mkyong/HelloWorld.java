@@ -18,7 +18,7 @@ public class HelloWorld {
 
         // with Java 8, we can do this, no need to check the log level
         while (true)//test rolling file
-        logger.debug("hello {}", () -> getNumber());
+            logger.debug("hello {}", () -> getNumber());
 
     }
 
