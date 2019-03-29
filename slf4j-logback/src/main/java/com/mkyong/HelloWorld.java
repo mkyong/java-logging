@@ -9,10 +9,10 @@ public class HelloWorld {
 
     public static void main(String[] args) {
 
-        logger.debug("Hello from Log4j 2");
+        logger.debug("Hello from Logback");
 
-        while (true)//test rotate file
-            logger.debug("getNumber() : {}", getNumber());
+        //while (true)//test rotate file
+        logger.debug("getNumber() : {}", getNumber());
 
     }
 

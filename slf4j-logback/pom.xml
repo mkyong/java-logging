@@ -13,6 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <logback.version>1.2.3</logback.version>
+        <javax.mail.version>1.6.2</javax.mail.version>
     </properties>
 
     <dependencies>
@@ -24,11 +25,11 @@
             <version>${logback.version}</version>
         </dependency>
 
-        <!-- SMTPAppender need this -->
+        <!-- SMTPAppender need this to send email -->
         <dependency>
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
-            <version>1.6.2</version>
+            <version>${javax.mail.version}</version>
         </dependency>
 
     </dependencies>
@@ -45,6 +46,7 @@
                 </configuration>
             </plugin>
 
+            <!-- build a single executable JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
