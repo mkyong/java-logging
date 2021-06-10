@@ -8,10 +8,10 @@ public class TagExample {
 
         Logger.info("normal");
 
-        // send to writer with tag `system`
+        // send to writer tagged `system`
         Logger.tag("system").error("this is system!");
 
-        // send to writer with tag `api`
+        // send to writer tagged `api`
         Logger.tag("api").info("This is normal api log!");
 
     }

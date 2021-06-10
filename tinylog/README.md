@@ -1,5 +1,5 @@
-# Java Logging APIs Tutorial
+# tinylog Tutorial
 
-`java.util.logging` examples.
+tinylog 2 examples
 
-https://mkyong.com/logging/java-logging-apis-tutorial/
+https://mkyong.com/logging/tinylog-tutorial/
